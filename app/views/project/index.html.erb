@@ -28,7 +28,7 @@
 
     <ul class='small_list'>
       <% @projects.each do |project| %>
-        <li><%= link_to "#{project.name || 'Un-named project'} - #{project.date}", project_url(project) %></a></li>
+        <li><%= link_to "#{project.name || 'Unnamed project'} - #{project.date}", project_url(project) %></a></li>
       <% end %>
 
     </ul>
