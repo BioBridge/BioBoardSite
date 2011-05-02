@@ -8,13 +8,17 @@ Installing the Web App
 
 Create a directory for the software:
 
-  mkdir ~/bioboard
+<blockquote>
+  <p>mkdir ~/bioboard<p/>
 
-  cd ~/bioboard
+  <p>cd ~/bioboard</p>
+</blockquote>
 
 Install ruby:
 
+<blockquote>
   sudo apt-get install ruby-full
+</blockquote>
 
 Go to http://rubygems.org/ and download the rubygems tgz.
 
@@ -27,13 +31,13 @@ extract the files:
 Install rubygems:
 
 <blockquote>
-  cd rubygems-1.7.2/
+  <p>cd rubygems-1.7.2/</p>
 
-  sudo ruby setup.rb
+  <p>sudo ruby setup.rb</p>
 
-  cd /usr/bin/
+  <p>cd /usr/bin/</p>
 
-  sudo ln -s gem1.8 gem
+  <p>sudo ln -s gem1.8 gem</p>
 </blockquote>
 
 Install Ruby on Rails:
@@ -51,29 +55,29 @@ Make sure you have git installed:
 Get the code for the web app:
 
 <blockquote>
-  cd ~/bioboard/
+  <p>cd ~/bioboard/</p>
 
-  git clone https://github.com/BioBridge/BioBoardSite.git
+  <p>git clone https://github.com/BioBridge/BioBoardSite.git</p>
 </blockquote>
 
 Install web app dependencies:
 
 <blockquote>
-  sudo apt-get install libsqlite3-dev
+  <p>sudo apt-get install libsqlite3-dev</p>
 
-  bundle install
+  <p>bundle install</p>
 </blockquote>
 
 Initialize the database:
 
 <blockquote>
-  cd ~/bioboard/BioBoardSite/config/
+  <p>cd ~/bioboard/BioBoardSite/config/</p>
 
-  tar xvf config_examples.tar
+  <p>tar xvf config_examples.tar</p>
 
-  cd ..
+  <p>cd ..</p>
 
-  rake db:migrate
+  <p>rake db:migrate</p>
 </blockquote>
 
 Start the web app to see if it works:
@@ -85,11 +89,11 @@ Start the web app to see if it works:
 You should get something like the following:
 
 <blockquote>
-=> Booting WEBrick
-=> Rails 3.0.5 application starting in development on http://0.0.0.0:3000
-=> Call with -d to detach
-=> Ctrl-C to shutdown server
-[2011-05-01 21:57:44] INFO  WEBrick 1.3.1
+=> Booting WEBrick<br/>
+=> Rails 3.0.5 application starting in development on http://0.0.0.0:3000<br/>
+=> Call with -d to detach<br/>
+=> Ctrl-C to shutdown server<br/>
+[2011-05-01 21:57:44] INFO  WEBrick 1.3.1<br/>
 [2011-05-01 21:57:44] INFO  ruby 1.8.7 (2010-06-23) [i686-linux]
 </blockquote>
 
