@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BioBoard v0.1</title>
+  <%= stylesheet_link_tag 'ui.css' %>
+  <%= javascript_include_tag 'prototype.js' %>
+  <%= javascript_include_tag 'ui.js' %>
+  <%= javascript_include_tag 'jquery.js' %>
+  <script type='text/javascript'>
+    var $j = jQuery.noConflict();
+  </script>
+  <%= javascript_include_tag 'jquery.flot.js' %>
+  <%= javascript_include_tag 'jquery.jsonp.js' %>
+
+  <%= csrf_meta_tag %>
+</head>
+<body>
+
+  <% if flash[:notice] %>
+    <div class='holder'>
+      <div class='flash_notice'><%= flash[:notice] %></div>
+      <div class='validation_errors'>
+        <%= error_messages_for :project %>
+      </div>
+    </div>
+  <% end %>
+
+<%= yield %>
+
+<div class='fclearer' />
+
+</body>
+</html>

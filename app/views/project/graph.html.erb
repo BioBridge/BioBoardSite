@@ -1,0 +1,15 @@
+
+
+
+<h1>Measurements</h1>
+
+
+<div id="placeholder" style="width:600px;height:300px;"></div>
+
+
+
+<script type='text/javascript'>
+    var d = <%= @pairs %>;
+
+    $.plot($("#placeholder"), [d], { xaxis: { mode: "time" } });
+</script>

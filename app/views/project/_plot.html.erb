@@ -1,0 +1,20 @@
+
+<div id='plot_container'>
+  <div id='plot' style='width:600px;height:400px;'></div>
+  <div id='plot_controls'>
+    <h3>Probes</h3>
+    <div id='probe_checkboxes'>
+      <% @project.probes.each do |probe| %>
+        <div class='probe_checkbox_container'>
+          <label>
+            <input type='checkbox' id="<%= 'probe_checkbox:' + probe.id.to_s %>" checked='checked' onclick="PlotHelpers.toggle_probe(this)" />
+            <%= probe.probe_type.long_name %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+    
+  </div>
+</div>
+
+<div class='clearer' />

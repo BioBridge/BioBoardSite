@@ -1,0 +1,141 @@
+
+
+<div class='holder'>
+  <% if !@project.name %>
+    <h1 class='project_name_label'>Project: </h1>
+  <% else %>
+    <h1 class='project_name_label'>Project: </h1><h1 class='project_name_label' id='project_name_static' onclick='ProjectHelpers.edit_name()' onmouseover='ProjectHelpers.name_static_mouseover(this)' onmouseout='ProjectHelpers.name_static_mouseout(this)'><%= @project.name %></h1>
+  <% end %>
+  <input id='project_name_field' type='text' name='project_name' value='<give your project a name>' onfocus='ProjectHelpers.name_focus(this)' onblur='ProjectHelpers.name_blur(this)' style="<%= 'display:none' if @project.name %>" />
+  <div id='project_name_hint' class='input_hint'></div>
+  <div class='clearer' />
+  <h3>Started on <%= @project.date %></h3>
+  <h3 style='font-size: 13px'>Project identifier: <%= @project.id %></h3>
+</div>
+
+<hr />
+
+<% if @project.probes.length > 0 %>
+
+  <%= render :partial => 'plot' %>
+
+<% else %>
+
+  <%= render :partial => 'no_data_guide' %>
+
+<% end %>
+
+
+<script type='text/javascript'>
+
+    var PlotHelpers = {
+      probes_data: null,
+
+      plot: function(data) {
+        $j.plot($j('#plot'), data, { xaxis: { mode: 'time' } });
+      },
+
+      refresh: function() {
+        var all_data = [];
+        var i;
+        for(i=0; i < this.probes_data.length; i++) {
+          if(this.probes_data[i].enabled == true) {
+            all_data.push(this.probes_data[i].plot_data);
+          }
+        }
+        this.plot(all_data);
+      },
+
+      plot_all: function() {
+        var i;
+        for(i=0; i < this.probes_data.length; i++) {
+          this.probes_data[i].enabled = true;
+        }
+        this.refresh();
+      },
+
+      toggle_probe: function(node) {
+        var probe_id = node.id.split(':')[1];
+        var i;
+        for(i=0; i < this.probes_data.length; i++) {
+          if(this.probes_data[i].id == probe_id) {
+            this.probes_data[i].enabled = !this.probes_data[i].enabled;
+            break;
+          }
+        }
+        this.refresh();
+      },
+
+      init: function(probes_data) {
+        this.probes_data = probes_data;
+        this.plot_all();
+      }
+    }
+
+    // Plot if there is a place to plot
+    if($('plot')) {
+      PlotHelpers.init(<%= raw @probes_data.to_json %>);
+    }
+
+
+
+    var ProjectHelpers =  {
+
+      editing_name: false,
+     
+      edit_name: function() {
+        this.editing_name = true;
+        $('project_name_static').style.display = 'none';
+        $('project_name_field').style.display = 'block';
+        $('project_name_field').focus();
+      },
+
+      name_static_mouseover: function(node) {
+        $('project_name_hint').innerHTML = 'Hint: Click the name to edit.'
+        $('project_name_hint').style.display = 'block';
+      },
+
+      name_static_mouseout: function(node) {
+        if(this.editing_name == false) {
+          $('project_name_hint').style.display = 'none';
+        }
+      },
+
+      name_focus: function() {
+        if($('project_name_static') && ($('project_name_static').innerHTML != '')) {
+          $('project_name_field').value = $('project_name_static').innerHTML;
+        } else {
+          $('project_name_field').value = '';
+        }
+        $('project_name_hint').innerHTML = 'Hint: Press enter to save or escape to cancel.'
+        $('project_name_hint').style.display = 'block';
+      },
+
+      name_blur: function(node) {
+        if(node.value.replace(/\s+/, '') == '') {
+          this.name_change_cancel(node);
+        } else {
+          this.name_change_save(node.value);
+        }
+        $('project_name_hint').innerHTML = '';
+        $('project_name_hint').display = 'none';
+      },
+
+      name_change_cancel: function(node) {
+        node.value = '<give your project a name>';
+      },
+
+      name_change_save: function(name) {
+        new Ajax.Request('<%= url_for :action => 'ajax_save_name', :id => @project.id %>', {
+          parameters: {project_name: name},
+          onSuccess: this.name_change_success.bindAsEventListener(this),
+        });
+      },
+
+      name_change_success: function(data) {
+
+      }
+
+    }
+
+</script>

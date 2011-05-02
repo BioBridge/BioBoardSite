@@ -1,0 +1,37 @@
+
+<div class='holder'>
+  <h1>BioBoard v0.1</h1>
+</div>
+
+<hr />
+
+<div class='holder'>
+
+  <h3>Welcome to the BioBoard web application!</h3>
+
+  <% if @projects.length == 0 %>
+    <p>It looks like this is your first time here.</p>
+    <p>You should click the button below to get started :-)</p>
+  <% else %>
+    <p>To begin, either start a new project or choose an existing project from the list.</p> 
+  <% end %>
+  <div id='start_project_button' class='button'><%= link_to 'Start a new project!', :action => 'new' %></div>
+
+</div>
+
+
+<% if @projects.length > 0 %>  
+  <hr />
+  <div class='holder'>
+
+    <p>Existing projects</p>
+
+    <ul class='small_list'>
+      <% @projects.each do |project| %>
+        <li><%= link_to "#{project.name || 'Un-named project'} - #{project.date}", project_url(project) %></a></li>
+      <% end %>
+
+    </ul>
+
+  </div>
+<% end %>
