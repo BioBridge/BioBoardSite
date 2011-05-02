@@ -116,27 +116,27 @@ This assumes that you have installed the web app on the same computer. You can h
 Get the code:
 
 <blockquote>
-  cd ~/bioboard/
+  <p>cd ~/bioboard/</p>
 
-  git clone https://github.com/BioBridge/BioBoardLogServer.git
+  <p>git clone https://github.com/BioBridge/BioBoardLogServer.git</p>
 </blockquote>
 
 Install the dependencies:
 
 <blockquote>
-  sudo aptitude install build-essential
+  <p>sudo aptitude install build-essential</p>
 
-  sudo gem install eventmachine --no-ri --no-rdoc
+  <p>sudo gem install eventmachine --no-ri --no-rdoc</p>
 
-  sudo gem install json
+  <p>sudo gem install json</p>
 </blockquote>
 
 Start the log server:
 
 <blockquote>
-  cd BioBoardLogServer/
+  <p>cd BioBoardLogServer/</p>
 
-  ./server
+  <p>./server</p>
 </blockquote>
 
 Note that the server assumes your sqlite database is at "../BioBoardSite/db/dev.sqlite". This will be true if you followed this guide. If you want to keep your sqlite database elsewhere, you need to modify the line "dbpath = '../BioBoardSite/db/dev.sqlite'" in the file "BioBoardLogServer/server.rb", and the line "database: db/dev.sqlite" in the file "BioBoardSite/config/database.yml". 
