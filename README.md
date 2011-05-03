@@ -106,8 +106,6 @@ Open your web-browser and go to:
 You should see the welcome page.
 If you did: Congratulations! You're almost there :-) Let the webserver run, open up a new terminal and continue to the next section.
 
-If it's not working: Go to our support forum at TODO ref
-
 Installing the log & comet server
 =================================
 
@@ -170,17 +168,7 @@ In the project list at the bottom, click the "BATCH1" project.
 
 If everything is working, you should see a graph with two lines. You can hit refresh in the browser to update the graphs with the new data.
 
-Connecting the BioBoard
-=======================
+Using the software
+==================
 
-There are two ways of connecting BioBoards to the log server. One is to connect the Arduino to the computer running the logserver using USB. The other is to use an Arduino Ethernet Shield to send over a local network or the Internet. 
-
-Using USB
----------
-
-TODO writeme
-
-Using the Ethernet Shield
--------------------------
-
-TODO writeme
+For information on how to use this software, go to: https://www.noisebridge.net/wiki/BioBoard/Documentation/PC_Software#Using_the_software
