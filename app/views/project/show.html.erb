@@ -31,19 +31,53 @@
     var PlotHelpers = {
       probes_data: null,
 
-      plot: function(data) {
-        $j.plot($j('#plot'), data, { xaxis: { mode: 'time' } });
+      plot: function(datasets) {
+        var data = [];
+        var xaxes = [{ mode: 'time' }];
+        var yaxes = [];
+        var i, yaxispos;
+        for(i=0; i < datasets.length; i++) {
+          yaxispos = (i > 0) ? 'right' : 'left';
+          yaxes.push({
+                     min: 0,
+                     position: yaxispos,
+                     alignTicksWithAxis: (yaxispos == 'right') ? 1 : null
+                     });
+          
+          var d = {
+                    data: datasets[i].plot_data,
+                    label: datasets[i].long_name
+                  };
+          if(i > 0) {
+            d.yaxis = i + 1;
+          }
+          data.push(d);
+        }
+
+//    alert(yaxes);
+
+        var series = {
+          lines: {show: true}, 
+          points: {show: false}
+        };
+
+        var legend = {
+          show: true,
+          position: 'sw'
+        };
+
+        $j.plot($j('#plot'), data, {xaxes: xaxes, yaxes: yaxes, series: series, legend: legend});
       },
 
-      refresh: function() {
-        var all_data = [];
+      redraw: function() {
+        var datasets = [];
         var i;
         for(i=0; i < this.probes_data.length; i++) {
           if(this.probes_data[i].enabled == true) {
-            all_data.push(this.probes_data[i].plot_data);
+            datasets.push(this.probes_data[i]);
           }
         }
-        this.plot(all_data);
+        this.plot(datasets);
       },
 
       plot_all: function() {
@@ -51,7 +85,7 @@
         for(i=0; i < this.probes_data.length; i++) {
           this.probes_data[i].enabled = true;
         }
-        this.refresh();
+        this.redraw();
       },
 
       toggle_probe: function(node) {
@@ -63,7 +97,7 @@
             break;
           }
         }
-        this.refresh();
+        this.redraw();
       },
 
       init: function(probes_data) {
@@ -137,5 +171,18 @@
       }
 
     }
+
+/*
+  $j.jsonp({
+    url: "http://localhost:9090/data.js",
+    callback: "parseResponse",
+    success: function(data) {
+      alert(data);
+    },
+    error: function(d, msg) {
+      alert('error: ' + d);
+    }
+  });
+*/
 
 </script>
